@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ogrenci_bilgi_sistemi", "ogrenci_bilgi_sistemi\ogrenci_bilgi_sistemi.csproj", "{62B138D5-3A08-405F-BAEA-AB4D4BF6EE0E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62B138D5-3A08-405F-BAEA-AB4D4BF6EE0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62B138D5-3A08-405F-BAEA-AB4D4BF6EE0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62B138D5-3A08-405F-BAEA-AB4D4BF6EE0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62B138D5-3A08-405F-BAEA-AB4D4BF6EE0E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0B2B61A0-643F-4484-B88D-D74033D35E6F}
+	EndGlobalSection
+EndGlobal

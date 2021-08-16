@@ -1,0 +1,557 @@
+﻿@model ogrenci_bilgi_sistemi.Controllers.OgretmenOgrenciViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"></style>
+     
+</head>
+<body>
+    <div aria-live="polite" aria-atomic="true" style="position: relative;">
+        <div class="toast" style="position: absolute; top: 0; right:-15px;  z-index: 2; " data-delay="10000">
+            <div class="toast-header">
+
+                <strong class="mr-auto">Başarılı!</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                BAŞARIYLA EKLENDİ
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col">
+                <div class="card" style="width:400px">
+
+                    <img class="card-img-top" src="https://images.pexels.com/photos/261909/pexels-photo-261909.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" style="height:230px; width:100%">
+                    <div class="card-body">
+                        <h4 class="card-title">Öğrenci Ekle</h4>
+                        <p class="card-text">MOSK BİLİŞİM OKULA KAYIT OLMAK İÇİN TIKLAYINIZ...</p>
+                        <button type="button" class="btn btn-primary btn-lg" onclick="$('#ogrenciEkle').modal('show')">
+                            Öğrenci Ekle
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="width:400px">
+                    <img class="card-img-top" src="https://images.pexels.com/photos/3862130/pexels-photo-3862130.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Card image" style="height: 230px; width: 100% ">
+                    <div class="card-body">
+                        <h4 class="card-title">EĞİTMEN EKLE</h4>
+                        <p class="card-text">MOSK BİLİŞİM OKULUNA EĞİTMEN OLMAK İÇİN TIKLAYINIZ...</p>
+                        <button type="button" class="btn btn-primary btn-lg " onclick="$('#ogretmenEkle').modal('show')">
+                            Eğitmen Ekle
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row ">
+            <br />
+            <br />
+        </div>
+
+
+        <div class="row ">
+            <div class="col">
+                <div class="card" style="width:400px">
+                    <img class="card-img-top" src="https://images.pexels.com/photos/4144923/pexels-photo-4144923.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Card image" style="height: 230px; width: 100% ">
+                    <div class="card-body">
+                        <h4 class="card-title">DERS KAYIT</h4>
+                        <p class="card-text">DERS KAYDINI TAMAMLAMAYI UNUTMAYIN...</p>
+                        <button type="button" class="btn btn-primary btn-lg" onclick="$('#dersKayit').modal('show')">
+                            Ders Kayıt Et
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col">
+                <div class="card" style="width:400px">
+                    <img class="card-img-top" src="https://images.pexels.com/photos/416322/pexels-photo-416322.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Card image" style="height: 230px; width: 100% ">
+                    <div class="card-body">
+                        <h4 class="card-title">LİSTELE</h4>
+                        <p class="card-text">TÜM ÖĞRENCİLERİN HANGİ DERSLERİ ALDIĞINI LİSTELEYİN</p>
+                        <a href="../home/listele" class="btn btn-primary">Listeleyiniz</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row ">
+            <br />
+            <br />
+            <br />
+        </div>
+        <!-- /.öğrenci ekle modal -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="ogrenciEkle">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Öğrenci Ekleyiniz</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row " style="margin:2px; padding:10px">
+                            <div class="input-group flex-nowrap col">
+                                <span class="input-group-text" id="addon-wrapping">İSİM</span>
+                                <input type="text" class="form-control" placeholder="ÖĞRENCİ İSİM" aria-label="isim" aria-describedby="addon-wrapping" id="ogrenciadi">
+                            </div>
+                        </div>
+                        <div class="row " style="margin:2px; padding:10px">
+                            <div class="input-group flex-nowrap col">
+                                <span class="input-group-text" id="addon-wrapping">SOYİSİM</span>
+                                <input type="text" class="form-control" placeholder="ÖĞRENCİ SOYİSİM" aria-label="Soyad" aria-describedby="addon-wrapping" id="ogrencisoyadi">
+                            </div>
+                        </div>
+                        <div class="row " style="margin:2px; padding:10px">
+                            <div class="input-group flex-nowrap col">
+                                <span class="input-group-text" id="addon-wrapping">TELEFON NO</span>
+                                <input type="text" class="form-control" placeholder="ÖĞRENCİ TELEFON NO" aria-label="telno" aria-describedby="addon-wrapping" id="ogrencitelno">
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                        <button type="button" class="btn btn-primary" id="ogrenciekle">Öğrenci Ekle</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- /.öğretmen ekle modal -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="ogretmenEkle">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Eğitmen Ekle</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row " style="margin:2px; padding:10px">
+                            <div class="input-group flex-nowrap col">
+                                <span class="input-group-text" id="addon-wrapping">İSİM</span>
+                                <input type="text" class="form-control" placeholder="EĞİTMEN İSİM" aria-label="isim" aria-describedby="addon-wrapping" id="ogretmenadi">
+                            </div>
+                        </div>
+                        <div class="row " style="margin:2px; padding:10px">
+                            <div class="input-group flex-nowrap col">
+                                <span class="input-group-text" id="addon-wrapping">SOYİSİM</span>
+                                <input type="text" class="form-control" placeholder="EĞİTMEN SOYİSİM" aria-label="Soyad" aria-describedby="addon-wrapping" id="ogretmensoyadi">
+                            </div>
+                        </div>
+                        <div class="row " style="margin:2px; padding:10px">
+                            <div class="input-group flex-nowrap col">
+                                <span class="input-group-text" id="addon-wrapping">TELEFON NO</span>
+                                <input type="text" class="form-control" placeholder="EĞİTMEN TELEFON NO" aria-label="telno" aria-describedby="addon-wrapping" id="ogretmentelno">
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                        <button type="button" class="btn btn-primary" id="ogretmenekle">Eğitmen Ekle</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- /.ders atama ekle modal -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="dersKayit">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Ders Seçme</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row " style="margin:2px; padding:10px">
+                            <div class="input-group flex-nowrap col">
+                                <span class="input-group-text" id="addon-wrapping">Öğrenci Adı</span>
+                                <select class="form-control" id="selectOgrenciAdi">
+                                    <option value="-1">Seçiniz</option>
+                                    @for (int i = 0; i < Model.ogrenciList.Count; i++)
+                                    {
+                                        <option value="@Model.ogrenciList[i].Id">@Model.ogrenciList[i].Adi @Model.ogrenciList[i].Soyadi</option>
+                                    }
+                                </select>
+                                @*@ViewBag.liste.*@
+                            </div>
+                        </div>
+                        <div class="row " style="margin:2px; padding:10px">
+                            <div class="input-group flex-nowrap col">
+                                <span class="input-group-text" id="addon-wrapping">EĞİTMEN ADİ</span>
+                                <select class="form-control" id="selectOgretmenAdi">
+                                    <option value="-1">Seçiniz</option>
+                                    @for (int i = 0; i < Model.ogretmenList.Count; i++)
+                                    {
+                                        <option value="@Model.ogretmenList[i].Id">@Model.ogretmenList[i].Adi @Model.ogretmenList[i].Soyadi</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row " style="margin:2px; padding:10px">
+                            <div class="input-group flex-nowrap col">
+                                <span class="input-group-text" id="addon-wrapping">DERS ADİ</span>
+                                <select class="form-control" id="selectDersler">
+                                    <option value="none">Hiçbiri</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                        <button type="button" class="btn btn-primary" id="derskayıt">Ders Kaydet</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <!-- /.öğretmen Ders atama -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="ogretmendersata">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Eğitmen Ders Ata</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row " style="margin:2px; padding:10px">
+                            <div class="input-group flex-nowrap col">
+                                <span class="input-group-text" id="addon-wrapping">İSİM</span>
+                                <select class="form-control" id="selectogretmenata">
+                                    <option value="-1">Seçiniz</option>
+                                    @for (int i = 0; i < Model.ogretmenList.Count; i++)
+                                    {
+                                        <option value="@Model.ogretmenList[i].Id">@Model.ogretmenList[i].Adi @Model.ogretmenList[i].Soyadi</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row " style="margin:2px; padding:10px">
+                            <div class="input-group flex-nowrap col">
+                                <span class="input-group-text" id="addon-wrapping">Ders Adi</span>
+                                <select class="form-control" id="selectdersata">
+                                    <option value="-1">Seçiniz</option>
+                                    @for (int i = 0; i < Model.derList.Count; i++)
+                                    {
+                                        <option value="@Model.derList[i].Id">@Model.derList[i].DersAdi </option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                        <button type="button" class="btn btn-primary" id="ogretmenAta">Kaydet</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+
+
+    </div>
+
+</body>
+</html>
+<script>
+
+</script>
+@*<script>
+        function notifyFunc(type, message) {
+            var belediye;
+            var alert = {};
+            alert.message = message;
+            var notify = $.notify(alert, {
+                type: type,
+                allow_dismiss: true,
+                newest_on_top: true,
+                mouse_over: true,
+                showProgressbar: false,
+                spacing: 10,
+                timer: 2000,
+                placement: {
+                    from: 'top',
+                    align: 'right'
+                },
+                offset: {
+                    x: 30,
+                    y: 30
+                },
+                delay: 1000,
+                z_index: 1000,
+                animate: {
+                    enter: 'animated ' + 'bounce',
+                    exit: 'animated ' + 'bounce'
+                }
+            });
+        }
+    </script>*@
+
+<script>
+
+    //$(function () {
+    //    $('#error').click(function () {
+    //        // make it not dissappear
+    //        toastr.error("Noooo oo oo ooooo!!!", "Title", {
+    //            "timeOut": "0",
+    //            "extendedTImeout": "0"
+    //        });
+    //    });
+    //    $('#info').click(function () {
+    //        // title is optional
+    //        toastr.info("Info Message", "Title");
+    //    });
+    //    $('#warning').click(function () {
+    //        toastr.warning("Warning");
+    //    });
+    //    $('#success').click(function () {
+    //        toastr.success("YYEESSSSSSS");
+    //    });
+    //});
+
+</script>
+
+<script>
+
+    $('body').on('click', '#ogrenciekle', function () {
+        ////
+ 
+        var isim = $('#ogrenciadi').val();
+        var soyad = $('#ogrencisoyadi').val();
+        var telno = $('#ogrencitelno').val();
+
+
+
+        var formdata = new FormData();
+        formdata.append('ad', isim);
+        formdata.append('soyad', soyad);
+        formdata.append('telno', telno);
+
+         $.ajax({
+            url: '/api/ogrenci/ekle',
+            method: 'post',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (resp) {
+                console.log(resp)
+                var data = JSON.parse(resp)
+                if (data.success == true) {
+                    $('#ogrenciEkle').modal('hide')
+                    $('.toast').toast('show');
+                /*notifyFunc("success", "Kurum Başarıyla Eklendi!");*/
+
+
+                    //'\<div class="alert alert-success" role="alert">\
+                    //    Success Alert\
+                    //    </div > \
+                    //'
+                    console.log(resp.message);
+
+
+                }
+                else if (data.success == false)
+                    console.log("ders eklenirken hata olust")
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+    });
+</script>
+<script>
+    $('body').on('click', '#ogretmenekle', function () {
+        ////
+
+        var isim = $('#ogretmenadi').val();
+        var soyad = $('#ogretmensoyadi').val();
+        var telno = $('#ogretmentelno').val();
+        var formdata = new FormData();
+        formdata.append('ad', isim);
+        formdata.append('soyad', soyad);
+        formdata.append('telno', telno);
+
+        
+        $.ajax({
+            url: '/api/ogretmen/ekle',
+            method: 'post',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            
+            success: function (resp) {
+                
+                var data = JSON.parse(resp)
+                console.log(data)
+
+                if (data.success == true) {
+                    $('#ogrenciEkle').modal('hide')
+                    $('.toast').toast('show');
+                }
+                else if (data.success == false)
+                    console.log("ogretmen eklenirken hata olust")
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+    });
+</script>
+<script>
+    $('body').on('change', '#selectOgretmenAdi', function () {
+        var ogretmenId = $('#selectOgretmenAdi').val();
+        console.log(ogretmenId)
+        if (ogretmenId == -1 || ogretmenId == '-1') {
+            $('#selectDersler').empty();
+            $('#selectDersler').append("<option value='-1'>Seçiniz</option>");
+
+        }
+        else {
+            $.ajax({
+                url: '/API/OgretmeninDersleriniGetir?ogretmenId=' + ogretmenId,
+                type: 'GET',
+                contentType: 'json',
+                success: function (resp) {
+                    var jsonParse = JSON.parse(resp);
+                    console.log(jsonParse)
+                    $('#selectDersler').empty();
+                    $('#selectDersler').append("<option value='-1'>Seçiniz</option>");
+                    for (var i = 0; i < jsonParse.length; i++) {
+                        $('#selectDersler').append("<option value='" + jsonParse[i].Id + "'>" + jsonParse[i].DersAdi + "</option>");
+                    }
+                }
+            });
+        }
+
+
+    });
+
+    $('body').on('click', '#derskayıt', function () {
+        var ogrenciId = $('#selectOgrenciAdi').val();
+        var ogretmenId = $('#selectOgretmenAdi').val();
+        var DersId = $('#selectDersler').val();
+
+        var formdata = new FormData();
+        formdata.append('ogrenciId', ogrenciId);
+        formdata.append('ogretmenId', ogretmenId);
+        formdata.append('DersId', DersId);
+
+
+        console.log("eklemei is şladmlas")
+        $.ajax({
+            url: '/api/derskayit',
+            method: 'post',
+            data: formdata,
+            processData: false,
+            contentType: false,
+           
+            success: function (resp) {
+                var data = JSON.parse(resp)
+                if (data.success == true)
+                {
+                    $('#ogrenciEkle').modal('hide')
+                    $('.toast').toast('show');
+                }
+                else if (data.success == false)
+                    console.log("ders eklenirken hata olustu")
+            },
+            error: function (err) {
+                console.log(err)
+            }
+
+        });
+
+    });
+</script>
+<script>
+
+    //$('body').on('change', '#selectogretmenata', function () {
+    //    var ogretmenId = $('#selectogretmenata').val();
+    //    console.log(ogretmenId)
+    //});
+    //$('body').on('change', '#selectdersata', function () {
+    //    var DersId = $('#selectdersata').val();
+    //    console.log(DersId)
+    //});
+
+
+    $('body').on('click', '#ogretmenAta', function () {
+        var ogretmenId = $('#selectogretmenata').val();
+        var DersId = $('#selectdersata').val();
+
+        var formdata = new FormData();
+        formdata.append('ogretmenId', ogretmenId);
+        formdata.append('DersId', DersId);
+
+
+
+        console.log("eklemei is şladmlas")
+        $.ajax({
+            url: '/api/dersata/ekle  ',
+            method: 'post',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (resp) {
+                var data = JSON.parse(resp)
+
+                if (data.success == true)
+                {
+                    $('#ogrenciEkle').modal('hide')
+                    $('.toast').toast('show');
+                }
+                else if (data == false)
+                    console.log("ders eklenirken hata olustu")
+            },
+            error: function (err) {
+                console.log(err)
+            }
+
+        });
+
+    });
+
+</script>

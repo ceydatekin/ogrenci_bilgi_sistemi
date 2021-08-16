@@ -1,0 +1,487 @@
+﻿@model ogrenci_bilgi_sistemi.Controllers.OgretmenOgrenciViewModel
+@{
+    ViewData["Title"] = "listele";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+
+    @*<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>*@
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" defer></script>
+</head>
+<body>
+    <h1>listele</h1>
+    <div style=" position:absolute; right:16%; top:15%;">
+        <input type="type" onkeyup="myFunction()" name="arama" id="log" />
+    </div>
+    <div class="">
+        <table id="veri" class="table table-striped table-hover ">
+            <thead>
+                <tr>
+                    <th>Ogrenci</th>
+                    <th>Ogretmen</th>
+                    <th>Ders</th>
+
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <!-- /.öğrenci ekle modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="ogrenciEkle">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Öğrenci Ekleyiniz</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="row " style="margin:2px; padding:10px">
+                        <div class="input-group flex-nowrap col">
+                            <span class="input-group-text" id="addon-wrapping">İSİM</span>
+                            <input type="text" class="form-control" placeholder="ÖĞRENCİ İSİM" aria-label="isim" aria-describedby="addon-wrapping" id="ogrenciadi">
+                        </div>
+                    </div>
+                    <div class="row " style="margin:2px; padding:10px">
+                        <div class="input-group flex-nowrap col">
+                            <span class="input-group-text" id="addon-wrapping">SOYİSİM</span>
+                            <input type="text" class="form-control" placeholder="ÖĞRENCİ SOYİSİM" aria-label="Soyad" aria-describedby="addon-wrapping" id="ogrencisoyadi">
+                        </div>
+                    </div>
+                    <div class="row " style="margin:2px; padding:10px">
+                        <div class="input-group flex-nowrap col">
+                            <span class="input-group-text" id="addon-wrapping">TELEFON NO</span>
+                            <input type="text" class="form-control" placeholder="ÖĞRENCİ TELEFON NO" aria-label="telno" aria-describedby="addon-wrapping" id="ogrencitelno">
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                    <button type="button" class="btn btn-primary" id="ogrenciekle">Öğrenci Ekle</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- /.öğretmen ekle modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="ogretmenEkle">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Eğitmen Ekle</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="row " style="margin:2px; padding:10px">
+                        <div class="input-group flex-nowrap col">
+                            <span class="input-group-text" id="addon-wrapping">İSİM</span>
+                            <input type="text" class="form-control" placeholder="EĞİTMEN İSİM" aria-label="isim" aria-describedby="addon-wrapping" id="ogretmenadi">
+                        </div>
+                    </div>
+                    <div class="row " style="margin:2px; padding:10px">
+                        <div class="input-group flex-nowrap col">
+                            <span class="input-group-text" id="addon-wrapping">SOYİSİM</span>
+                            <input type="text" class="form-control" placeholder="EĞİTMEN SOYİSİM" aria-label="Soyad" aria-describedby="addon-wrapping" id="ogretmensoyadi">
+                        </div>
+                    </div>
+                    <div class="row " style="margin:2px; padding:10px">
+                        <div class="input-group flex-nowrap col">
+                            <span class="input-group-text" id="addon-wrapping">TELEFON NO</span>
+                            <input type="text" class="form-control" placeholder="EĞİTMEN TELEFON NO" aria-label="telno" aria-describedby="addon-wrapping" id="ogretmentelno">
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                    <button type="button" class="btn btn-primary" id="ogretmenekle">Eğitmen Ekle</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="ogretmendersata">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Eğitmen Ders Ata</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="row " style="margin:2px; padding:10px">
+                        <div class="input-group flex-nowrap col">
+                            <span class="input-group-text" id="addon-wrapping">İSİM</span>
+                            <select class="form-control" id="selectogretmenata">
+                                <option value="-1">Seçiniz</option>
+                                @for (int i = 0; i < Model.ogretmenList.Count; i++)
+                                {
+                                    <option value="@Model.ogretmenList[i].Id">@Model.ogretmenList[i].Adi @Model.ogretmenList[i].Soyadi</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row " style="margin:2px; padding:10px">
+                        <div class="input-group flex-nowrap col">
+                            <span class="input-group-text" id="addon-wrapping">Ders Adi</span>
+                            <select class="form-control" id="selectdersata">
+                                <option value="-1">Seçiniz</option>
+                                @for (int i = 0; i < Model.derList.Count; i++)
+                                {
+                                    <option value="@Model.derList[i].Id">@Model.derList[i].DersAdi </option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                    <button type="button" class="btn btn-primary" id="ogretmenAta">Kaydet</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+</body>
+<script>
+
+    $('body').on('click', '#ogrenciekle', function () {
+        ////
+
+        var isim = $('#ogrenciadi').val();
+        var soyad = $('#ogrencisoyadi').val();
+        var telno = $('#ogrencitelno').val();
+
+
+
+        var formdata = new FormData();
+        formdata.append('ad', isim);
+        formdata.append('soyad', soyad);
+        formdata.append('telno', telno);
+
+        console.log("eklemei is şladmlas")
+        $.ajax({
+            url: '/api/ogrenci/ekle',
+            method: 'post',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (resp) {
+                if (resp.success == true)
+                    console.log(resp.message);
+                else if (resp == false)
+                    console.log("ders eklenirken hata olust")
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+    });
+</script>
+<script>
+    $('body').on('click', '#ogretmenekle', function () {
+        ////
+
+        var isim = $('#ogretmenadi').val();
+        var soyad = $('#ogretmensoyadi').val();
+        var telno = $('#ogretmentelno').val();
+        var formdata = new FormData();
+        formdata.append('ad', isim);
+        formdata.append('soyad', soyad);
+        formdata.append('telno', telno);
+
+        console.log("eklemei is şladmlas")
+        $.ajax({
+            url: '/api/ogretmen/ekle',
+            method: 'post',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (resp) {
+                console.log(resp)
+                var jsonResp = JSON.parse(resp);
+                console.log(jsonResp)
+
+                if (jsonResp.success == true)
+                    alert(jsonResp.message)
+                else if (jsonResp.success == false)
+                    console.log("ogretmen eklenirken hata olust")
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+    });
+</script>
+<script>
+    $('body').on('change', '#selectOgretmenAdi', function () {
+        var ogretmenId = $('#selectOgretmenAdi').val();
+        console.log(ogretmenId)
+        if (ogretmenId == -1 || ogretmenId == '-1') {
+            $('#selectDersler').empty();
+            $('#selectDersler').append("<option value='-1'>Seçiniz</option>");
+
+        }
+        else {
+            $.ajax({
+                url: '/API/OgretmeninDersleriniGetir?ogretmenId=' + ogretmenId,
+                type: 'GET',
+                contentType: 'json',
+                success: function (resp) {
+                    var jsonParse = JSON.parse(resp);
+                    console.log(jsonParse)
+                    $('#selectDersler').empty();
+                    $('#selectDersler').append("<option value='-1'>Seçiniz</option>");
+                    for (var i = 0; i < jsonParse.length; i++) {
+                        $('#selectDersler').append("<option value='" + jsonParse[i].Id + "'>" + jsonParse[i].DersAdi + "</option>");
+                    }
+                }
+            });
+        }
+
+
+    });
+
+    $('body').on('click', '#derskayıt', function () {
+        var ogrenciId = $('#selectOgrenciAdi').val();
+        var ogretmenId = $('#selectOgretmenAdi').val();
+        var DersId = $('#selectDersler').val();
+
+        var formdata = new FormData();
+        formdata.append('ogrenciId', ogrenciId);
+        formdata.append('ogretmenId', ogretmenId);
+        formdata.append('DersId', DersId);
+
+
+        console.log("eklemei is şladmlas")
+        $.ajax({
+            url: '/api/derskayit',
+            method: 'post',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (resp) {
+                if (resp.success == true)
+                    console.log(resp.message);
+                else if (resp == false)
+                    console.log("ders eklenirken hata olustu")
+            },
+            error: function (err) {
+                console.log(err)
+            }
+
+        });
+
+    });
+</script>
+<script>
+
+    //$('body').on('change', '#selectogretmenata', function () {
+    //    var ogretmenId = $('#selectogretmenata').val();
+    //    console.log(ogretmenId)
+    //});
+    //$('body').on('change', '#selectdersata', function () {
+    //    var DersId = $('#selectdersata').val();
+    //    console.log(DersId)
+    //});
+
+
+    $('body').on('click', '#ogretmenAta', function () {
+        var ogretmenId = $('#selectogretmenata').val();
+        var DersId = $('#selectdersata').val();
+
+        var formdata = new FormData();
+        formdata.append('ogretmenId', ogretmenId);
+        formdata.append('DersId', DersId);
+
+
+
+        console.log("eklemei is şladmlas")
+        $.ajax({
+            url: '/api/dersata/ekle  ',
+            method: 'post',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (resp) {
+                if (resp.success == true)
+                    console.log(resp.message);
+                else if (resp == false)
+                    console.log("ders eklenirken hata olustu")
+            },
+            error: function (err) {
+                console.log(err)
+            }
+
+        });
+
+    });
+
+</script>
+
+<script>
+    $('body').on('click', '#ogretmenekle', function () {
+        ////
+
+        var isim = $('#ogretmenadi').val();
+        var soyad = $('#ogretmensoyadi').val();
+        var telno = $('#ogretmentelno').val();
+        var formdata = new FormData();
+        formdata.append('ad', isim);
+        formdata.append('soyad', soyad);
+        formdata.append('telno', telno);
+
+        console.log("eklemei is şladmlas")
+        $.ajax({
+            url: '/api/ogretmen/ekle',
+            method: 'post',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (resp) {
+                console.log(resp)
+                var jsonResp = JSON.parse(resp);
+                console.log(jsonResp)
+
+                if (jsonResp.success == true)
+                    alert(jsonResp.message)
+                else if (jsonResp.success == false)
+                    console.log("ogretmen eklenirken hata olust")
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+    });
+</script>
+<script>
+    function myFunction() {
+        var harf = $('#log').val();
+        console.log(harf);
+        var url = '';
+        if (harf == '')
+            url = '/api/derslistele';
+        else
+            url = '/api/harflelistele?harf=' + harf;
+        $.ajax({
+            type: 'GET',
+            url: url,
+            data: '',
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            cache: false,
+            dataType: "json",
+            success: function (resp) {
+                console.log(resp)
+                $('#veri').DataTable().clear().destroy();
+                datatable = $('#veri').DataTable({
+                    orderCellsTop: true,
+                    fixedHeader: true,
+                    searching: false,
+                    bInfo: true,
+                    ordering: true,
+                    data: resp.data,
+
+                    columns: [
+                        {
+                            data: "OgrenciAdi"
+                        },
+                        {
+                            data: "OgretmenAdi"
+                        },
+                        {
+                            data: "Ders"
+                        }
+
+                    ],
+                    columnDefs: [],
+                    order: [[1, "asc"]],
+                    colReorder: true,
+                    scrollX: '50px',
+                    select: {
+                        style: 'multi'
+                    },
+
+                });
+            }
+        });
+    }
+</script>
+
+<script>
+    var datatable;
+    function Listele() {
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/derslistele',
+            data: '',
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            cache: false,
+            dataType: "json",
+            success: function (resp) {
+                console.log(resp)
+                $('#veri').DataTable().clear().destroy();
+                datatable = $('#veri').DataTable({
+                    orderCellsTop: true,
+                    fixedHeader: true,
+                    searching: false,
+                    bInfo: true,
+                    ordering: true,
+                    data: resp.data,
+
+                    columns: [
+                        {
+                            data: "OgrenciAdi"
+                        },
+                        {
+                            data: "OgretmenAdi"
+                        },
+                        {
+                            data: "Ders"
+                        }
+
+                    ],
+                    columnDefs: [],
+                    order: [[1, "asc"]],
+                    colReorder: true,
+                    scrollX: '50px',
+                    select: {
+                        style: 'multi'
+                    },
+
+                });
+            }
+        });
+
+    };
+
+
+    $(document).ready(function () { Listele() });
+
+
+
+
+
+</script>
